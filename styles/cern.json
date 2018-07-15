@@ -1,0 +1,110 @@
+{
+    "version": 8,
+    "name": "CERN",
+    "metadata": {
+        "mapbox:autocomposite": true,
+        "mapbox:type": "template",
+        "mapbox:sdk-support": {
+            "js": "0.46.0",
+            "android": "6.0.0",
+            "ios": "4.0.0"
+        },
+        "mapbox:trackposition": false
+    },
+    "center": [
+        6.048428646852585,
+        46.23852071751634
+    ],
+    "zoom": 13.939056813509119,
+    "bearing": 0,
+    "pitch": 0,
+    "sources": {
+        "composite": {
+            "url": "mbtiles://cern.mbtiles",
+            "type": "vector"
+        }
+    },
+    "glyphs": "https://glfonts.lukasmartinelli.ch/fonts/{fontstack}/{range}.pbf",
+    "layers": [
+        {
+            "id": "background",
+            "type": "background",
+            "paint": {
+                "background-color": "rgba(250, 250, 250, 1)"
+            }
+        },
+        {
+            "id": "transportation",
+            "type": "line",
+            "source": "composite",
+            "source-layer": "transportation",
+            "minzoom": 12,
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "line-color": "hsl(158, 0%, 80%)",
+                "line-width": 2,
+                "line-opacity": 0.52
+            }
+        },
+        {
+            "id": "building",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "building",
+            "minzoom": 12,
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "fill-color": "hsla(162, 0%, 78%, 0.43)",
+                "fill-outline-color": "hsla(162, 0%, 58%, 0.66)"
+            }
+        },
+        {
+            "id": "labels",
+            "type": "symbol",
+            "source": "composite",
+            "source-layer": "building_names",
+            "minzoom": 15.1,
+            "layout": {
+                "visibility": "visible",
+                "text-field": "{name}",
+                "text-size": 10,
+                "text-font": [
+                    "Open Sans Bold"
+                ]
+            },
+            "paint": {
+                "text-color": "hsl(162, 20%, 23%)"
+            }
+        },
+        {
+            "id": "spaces",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "spaces",
+            "minzoom": 12,
+            "layout": {},
+            "paint": {
+                "fill-color": "hsla(158, 54%, 49%, 0.12)",
+                "fill-outline-color": "hsla(157, 18%, 52%, 0)"
+            }
+        },
+        {
+            "id": "cern-building",
+            "type": "fill",
+            "source": "composite",
+            "source-layer": "cern_building",
+            "minzoom": 10,
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+                "fill-color": "hsla(177, 37%, 48%, 0.31)",
+                "fill-outline-color": "hsla(177, 54%, 49%, 0.96)"
+            }
+        }
+    ]
+}

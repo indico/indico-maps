@@ -1,0 +1,15 @@
+{
+    "data": {
+        "cern": {
+            "mbtiles": "cern.mbtiles"
+        }
+    },
+    "styles": {
+        "cern": {
+            "style": "styles/cern.json",
+            "tilejson": {
+                "bounds": [5.999219, 46.228323, 6.122505, 46.316830]
+            }
+        }
+     }
+}
