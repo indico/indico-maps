@@ -56,7 +56,7 @@ RUN apt-get -qq update \
 RUN cd /usr/src/app && npm install tileserver-gl
 
 # let's take the final product of the build stage
-COPY --from=0 /maps/out/cern.mbtiles /data
+COPY --from=builder /maps/out/cern.mbtiles /data
 COPY tileserver/config.json /data/
 COPY styles /data/styles
 COPY tileserver/run.sh /usr/src/app
