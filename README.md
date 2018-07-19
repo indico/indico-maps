@@ -14,3 +14,12 @@ The Dockerfile is made up of two stages:
 It should be quite easy to fork this repo and adapt it to your own context. Shape files were generated using [QGIS](https://qgis.org), from OSM data.
 
 This was possible thanks to the [OpenStreetMap project](https://www.openstreetmap.org/).
+
+## Usage
+
+```
+$ docker build . -t indico-maps
+$ docker run -p 8080:8080 -it indico-maps
+```
+
+Then, just connect to https://yourhost:8080.
