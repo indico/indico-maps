@@ -20,7 +20,7 @@ COPY shapes/* maps/shapes/
 
 WORKDIR /maps
 
-# get Swtizerland map and crop it to the CERN area
+# get Switzerland map and crop it to the CERN area
 RUN wget https://planet.osm.ch/switzerland.pbf && \
     osmconvert ./switzerland.pbf --complete-ways --out-pbf -b=5.9992195,46.224,6.1225052,46.3168303 > ./cern.osm.pbf
 
