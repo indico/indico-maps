@@ -22,7 +22,7 @@ WORKDIR /maps
 
 # get Switzerland map and crop it to the CERN area
 RUN wget https://planet.osm.ch/switzerland.pbf && \
-    osmconvert ./switzerland.pbf --complete-ways --out-pbf -b=5.9992195,46.224,6.1225052,46.3168303 > ./cern.osm.pbf
+    osmconvert ./switzerland.pbf --complete-ways --out-pbf -b=5.9992195,46.2,6.1225052,46.3168303 > ./cern.osm.pbf
 
 # transform OSM data into vector tiles (.mbtiles file)
 RUN tilemaker ./cern.osm.pbf --config tiles.json --output ./out/cern.mbtiles
