@@ -31,7 +31,7 @@ RUN tilemaker ./cern.osm.pbf --config tiles.json --output ./out/cern.mbtiles
 # we're not using klokantech/tileserver-gl-light directly because
 # it sets /data as a VOLUME, and we want the data to be included
 # in the image
-FROM node:6-stretch
+FROM node:8-stretch
 
 RUN mkdir /var/run/tileserver && chmod a+w /var/run/tileserver
 RUN mkdir /data
