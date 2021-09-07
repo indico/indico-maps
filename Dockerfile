@@ -1,5 +1,5 @@
 # Build stage
-FROM debian:stretch as builder
+FROM debian:buster as builder
 
 RUN apt-get update
 RUN apt-get install -y build-essential liblua5.1-0 liblua5.1-0-dev libprotobuf-dev libsqlite3-dev protobuf-compiler\
@@ -31,7 +31,9 @@ RUN tilemaker ./cern.osm.pbf --config tiles.json --output ./out/cern.mbtiles
 # we're not using klokantech/tileserver-gl-light directly because
 # it sets /data as a VOLUME, and we want the data to be included
 # in the image
-FROM node:8-stretch
+# XXX: this node version is EOL, but required by tileserver-gl...
+# https://github.com/maptiler/tileserver-gl/issues/492
+FROM node:10-buster
 
 RUN mkdir /var/run/tileserver && chmod a+w /var/run/tileserver
 RUN mkdir /data
@@ -47,7 +49,7 @@ RUN apt-get -qq update \
     libcairo2-dev \
     libgles2-mesa-dev \
     libgbm-dev \
-    libllvm3.9 \
+    libllvm7 \
     libprotobuf-dev \
     libxxf86vm-dev \
     xvfb \
