@@ -31,29 +31,39 @@ RUN tilemaker ./cern.osm.pbf --config tiles.json --output ./out/cern.mbtiles
 # we're not using klokantech/tileserver-gl-light directly because
 # it sets /data as a VOLUME, and we want the data to be included
 # in the image
-# XXX: this node version is EOL, but required by tileserver-gl...
-# https://github.com/maptiler/tileserver-gl/issues/492
-FROM node:10-buster
+FROM node:18-bullseye-slim
+
+ENV NODE_ENV="production"
 
 RUN mkdir /var/run/tileserver && chmod a+w /var/run/tileserver
 RUN mkdir /data
 RUN mkdir -p /usr/src/app
 
-RUN apt-get -qq update \
-&& DEBIAN_FRONTEND=noninteractive apt-get -y install \
-    apt-transport-https \
+# maplibre-gl-native install guide for Debian 11 Bullseye
+# https://github.com/maplibre/maplibre-gl-native/blob/main/platform/linux/README.md
+RUN apt-get -qq update && \
+    DEBIAN_FRONTEND=noninteractive apt install -y \
     curl \
-    unzip \
-    build-essential \
-    python \
-    libcairo2-dev \
-    libgles2-mesa-dev \
-    libgbm-dev \
-    libllvm7 \
-    libprotobuf-dev \
-    libxxf86vm-dev \
+    wget \
+    ccache \
+    cmake \
+    ninja-build \
+    pkg-config \
     xvfb \
-&& apt-get clean
+    libcurl4-openssl-dev \
+    libglfw3-dev \
+    libuv1-dev \
+    g++-10 \
+    libc++-9-dev \
+    libc++abi-9-dev \
+    libpng-dev \
+    libgl1-mesa-dev \
+    libgl1-mesa-dri && \
+    wget http://archive.ubuntu.com/ubuntu/pool/main/libj/libjpeg-turbo/libjpeg-turbo8_2.0.3-0ubuntu1_amd64.deb && \
+    apt install ./libjpeg-turbo8_2.0.3-0ubuntu1_amd64.deb && \
+    wget http://archive.ubuntu.com/ubuntu/pool/main/i/icu/libicu66_66.1-2ubuntu2_amd64.deb && \
+    apt install ./libicu66_66.1-2ubuntu2_amd64.deb && \
+    apt-get clean
 
 RUN cd /usr/src/app && npm install tileserver-gl
 
